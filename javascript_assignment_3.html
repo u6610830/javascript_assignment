@@ -1,37 +1,99 @@
 <!DOCTYPE html>
-<html>
-  <body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Monster Detail</title>
+
+
+</head>
+
+<body>
+
+    <h3>Monster Detail</h3>
+
+    <div>Select Monster:</div>
+    <div>
+        <select id="monster-list"></select>
+    </div>
+
+    <hr />
+
+    <div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <td id="td-monster-id"></td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td id="td-monster-name"></td>
+            </tr>
+            <tr>
+                <th>HP</th>
+                <td id="td-monster-hp"></td>
+            </tr>
+            <tr>
+                <th>EXP</th>
+                <td id="td-monster-exp"></td>
+            </tr>
+        </table>
+    </div>
+
     <script>
-      const people = [ 
-        "Alice Anderson", 
-        "Aaron Adams", 
-        "Bella Brown", 
-        "Brian Black", 
-        "Cathy Carter", 
-        "Charles Cooper", 
-        "Diana Davis", 
-        "Daniel Drake", 
-        "Ella Evans", 
-        "Ethan Edwards", 
-        "Fiona Fisher", 
-        "Frank Foster", 
-        "Grace Green", 
-        "Gavin Gray", 
-        "Hannah Harris", 
-        "Henry Hill", 
-        "Isabella Ingram", 
-        "Ian Irving", 
-        "Jack Johnson", 
-        "Julia James" 
-      ];
+        const monsters = [
+            { id: 1, name: "Fire Dragon", hp: 150, exp: 85 },
+            { id: 2, name: "Ice Wolf", hp: 75, exp: 45 },
+            { id: 3, name: "Shadow Goblin", hp: 40, exp: 25 },
+            { id: 4, name: "Lightning Phoenix", hp: 200, exp: 120 },
+            { id: 5, name: "Earth Golem", hp: 180, exp: 95 },
+            { id: 6, name: "Poison Spider", hp: 60, exp: 35 },
+            { id: 7, name: "Wind Eagle", hp: 90, exp: 55 },
+            { id: 8, name: "Dark Skeleton", hp: 65, exp: 40 },
+            { id: 9, name: "Crystal Unicorn", hp: 120, exp: 75 },
+            { id: 10, name: "Lava Titan", hp: 250, exp: 150 }
+        ];
 
-      const firstLetter = "D";
+        const select = document.getElementById("monster-list");
+        const idField = document.getElementById("td-monster-id");
+        const nameField = document.getElementById("td-monster-name");
+        const hpField = document.getElementById("td-monster-hp");
+        const expField = document.getElementById("td-monster-exp");
 
-      const result = people.filter((name) => {
-        return name.startsWith(firstLetter);
-      });
+        let defaultOption = document.createElement("option");
+        defaultOption.value = "-";
+        defaultOption.textContent = "-";
+        select.appendChild(defaultOption);
 
-      console.log(result);
+        monsters.forEach(m => {
+            let opt = document.createElement("option");
+            opt.value = m.id;
+            opt.textContent = m.name;
+            select.appendChild(opt);
+        });
+
+        function clearTable() {
+            idField.textContent = "";
+            nameField.textContent = "";
+            hpField.textContent = "";
+            expField.textContent = "";
+        }
+
+        select.onchange = function () {
+            if (this.value === "-") {
+                clearTable();
+                return;
+            }
+
+            const monster = monsters.find(m => m.id == this.value);
+
+            idField.textContent = monster.id;
+            nameField.textContent = monster.name;
+            hpField.textContent = monster.hp;
+            expField.textContent = monster.exp;
+        };
     </script>
-  </body>
+
+</body>
+
 </html>
